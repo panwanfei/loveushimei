@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        p {
+            line-height: 60px;
+            font-size: 26px;
+            color: indigo;
+            font-family: sans-serif;
+        }
+        
+        .bg {
+            background-image: url('image/us_one.jpg');
+            background-size: 100% 100%;
+            height: 100%;
+            margin-top: 0px;
+            float: none;
+        }
+        
+        .avatar {
+            padding: 207px 29px 120px 29px;
+            margin-top: 0px;
+            height: 20px;
+        }
+        
+        .avatar img {
+            width: 100px;
+            height: 90px;
+            border-radius: 100%;
+            border: solid 5px rgba(255, 255, 255, 0.5);
+        }
+        
+        .avatar #nan {
+            float: left;
+        }
+        
+        .avatar #nv {
+            float: right;
+        }
+        
+        .text-center {
+            text-align: center;
+            height: 114px;
+        }
+        
+        .btn {
+            color: #9B59B6;
+            font-size: 24px;
+            padding: 10px 120px;
+            border: 1px solid #a9f9f1;
+            border-radius: 10px;
+            background-color: aliceblue;
+        }
+        
+        .btn:hover {
+            background: #9B59B6;
+            border: 0 none;
+            color: #fff;
+        }
+        
+        .btn:visited {
+            color: #fff;
+            border: 1px solid #f8f8f8;
+        }
+        
+        .btn:active {
+            background: #1BA1E2;
+            border: 0 none;
+            color: #fff;
+        }
+        
+        .big_div {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="big_div">
+        <div class="bg">
+            <div class="avatar">
+                <img id="nan" src="image/me.jpg">
+                <img id="nv" src="image/you.jpg">
+            </div>
+            <div class="text-center">
+                <p>我们相恋了</p>
+                <p id="elapseClock"></p>
+            </div>
+            <div class="text2" style="margin-top: 30px; height: 73px; text-align: center;">
+                <a class="btn">甜蜜双击</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+    <script type="text/javascript" src="https://apis.map.qq.com/tools/geolocation/min?key=5VYBZ-G2KH3-BJ332-3NPKN-JUNNJ-ZHBQE&referer=优启梦用户探测"></script>
+    <!--您的Layui代码start-->
+    <script type="text/javascript">
+        layui.use(['layer'], function() {
+            var $ = layui.$,
+                layer = layui.layer;
+
+            $(document).ready(function() {
+                var together = new Date();
+                together.setFullYear(2019, 6, 20); //时间年月日
+                together.setHours(2); //小时  
+                together.setMinutes(2); //分钟
+                together.setSeconds(0); //秒前一位
+                together.setMilliseconds(0); //秒第二位
+
+                timeElapse(together);
+                setInterval(function() {
+                    timeElapse(together);
+                }, 1000);
+
+                $('.btn').click(function(event) {
+                    console.log('test');
+                    layer.msg('六一儿童节快乐，猪！');
+                });
+
+            });
+            var geolocation = new qq.maps.Geolocation();
+            var options = {
+                timeout: 3000
+            };
+            console.log(_DEFAULT_CITY);
+
+            function timeElapse(date) {
+                var current = Date();
+                var seconds = (Date.parse(current) - Date.parse(date)) / 1000;
+                var days = Math.floor(seconds / (3600 * 24));
+                seconds = seconds % (3600 * 24);
+                var hours = Math.floor(seconds / 3600);
+                if (hours < 10) {
+                    hours = "0" + hours;
+                }
+                seconds = seconds % 3600;
+                var minutes = Math.floor(seconds / 60);
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
+                seconds = seconds % 60;
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
+                }
+                var result = "<span class=\"digit\">" + days + "</span> 天 <span class=\"digit\">" + hours + "</span> 时 <span class=\"digit\">" + minutes + "</span> 分 <span class=\"digit\">" + seconds + "</span> 秒...";
+                $("#elapseClock").html(result);
+            }
+        });
+    </script>
+</body>
+
+</html>
